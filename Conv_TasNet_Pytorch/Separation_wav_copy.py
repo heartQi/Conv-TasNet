@@ -9,19 +9,14 @@ from Conv_TasNet import ConvTasNet
 from utils import get_logger
 from option import parse
 import tqdm
-import yaml
 
 
 class Separation():
     def __init__(self, mix_path, yaml_path, model, gpuid):
         super(Separation, self).__init__()
         self.mix = read_wav(mix_path)
-        # opt = parse(yaml_path, is_tain=False)
-        config = []
-        with open(yaml_path, 'r') as file:
-            config = yaml.safe_load(file)
-        net = ConvTasNet(**config['net_conf'])
-        # net = ConvTasNet(**opt['net_conf'])
+        opt = parse(yaml_path, is_tain=False)
+        net = ConvTasNet(**opt['net_conf'])
         dicts = torch.load(model, map_location='cpu')
         net.load_state_dict(dicts["model_state_dict"])
         self.logger = get_logger(__name__)

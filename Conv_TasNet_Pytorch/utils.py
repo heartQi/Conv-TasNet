@@ -10,7 +10,9 @@ def handle_scp(scp_path):
     '''
     scp_dict = dict()
     line = 0
-    lines = open(scp_path, 'r').readlines()
+    #lines = open(scp_path, 'r').readlines()
+    lines = open(scp_path, 'r', encoding='latin-1').readlines()
+
     for l in lines:
         scp_parts = l.strip().split()
         line += 1
